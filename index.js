@@ -5,33 +5,39 @@ app.use(cors());
 
 const Port = process.env.Port || 5000;
 
-const productsCollection = require("./Data/product.json");
+const productCollection = require("./Data/product.json");
 
 app.get("/", (req, res) => {
-  res.send("Now server is running");
+  res.send("Al Amin Eimon");
+});
+app.get("/allproduct", (req, res) => {
+  res.send(productCollection);
 });
 
-app.get("/allProducts", (req, res) => {
-  res.send(productsCollection);
-});
+
 
 app.get("/product/:id", (req, res) => {
   const id = req.params.id;
-  const getSingleItem = productsCollection?.find((p) => p.id == id);
-  if (!getSingleItem) {
-    res.send("Porduct khuje pai nai");
+  const singleProduct =productCollection ?. find(p => p.id == id);
+  if (!singleProduct) {
+    res.send('Product Nai');
   }
-  res.send(getSingleItem);
+  res.send(singleProduct);
 });
 
-app.get("/category/:name", (req, res) => {
+
+app.get("/catagory/:name", (req, res) => {
   const name = req.params.name;
-  const getCategory = productsCollection?.filter((p) => p.category == name);
-  res.send(getCategory);
+  const catagoryProduct = productCollection ?.filter((p) => p.category == name);
+  res.send(catagoryProduct);
 });
+
+
+
+
 
 app.listen(Port, () => {
-  console.log("server is running", Port);
+  console.log("Sercver is reunning on Port:", Port);
 });
 
 module.exports = app;
